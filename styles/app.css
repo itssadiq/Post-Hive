@@ -816,9 +816,9 @@ header {
     margin: 0;
   }
 
-  .user-profile {
+  /* .user-profile {
     display: none;
-  }
+  } */
 
   .create-post-actions {
     flex-wrap: wrap;

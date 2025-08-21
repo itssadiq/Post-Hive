@@ -1,6 +1,12 @@
 import { retrieveSession, signoutUser } from "../backend/backend.js";
 
-checkAuthentication();
+const userData = await checkAuthentication();
+
+const userName = userData.session.user.user_metadata.name;
+
+const usernameEl = document.querySelector(".username");
+
+usernameEl.innerHTML = userName;
 
 // Toggle between messages page and main feed
 document.getElementById("messages-icon").addEventListener("click", function () {
@@ -78,4 +84,6 @@ async function checkAuthentication() {
   if (data.session == null) {
     window.location.href = "index.html";
   }
+
+  return data;
 }
