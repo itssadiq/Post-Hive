@@ -1,3 +1,7 @@
+import { retrieveSession, signoutUser } from "../backend/backend.js";
+
+checkAuthentication();
+
 // Toggle between messages page and main feed
 document.getElementById("messages-icon").addEventListener("click", function () {
   document.getElementById("main-content").style.display = "none";
@@ -25,8 +29,16 @@ document.querySelector(".logout-cancel").addEventListener("click", function () {
 
 document
   .querySelector(".logout-confirm")
-  .addEventListener("click", function () {
-    alert("Logout functionality would be implemented here.");
+  .addEventListener("click", async function () {
+    try {
+      const data = await signoutUser();
+
+      if (!data) {
+        window.location.href = "index.html";
+      }
+    } catch (error) {
+      console.log("Error", error.message);
+    }
     document.getElementById("logout-modal").style.display = "none";
   });
 
@@ -59,3 +71,11 @@ conversations.forEach((conversation) => {
     this.classList.add("active");
   });
 });
+
+async function checkAuthentication() {
+  const data = await retrieveSession();
+
+  if (data.session == null) {
+    window.location.href = "index.html";
+  }
+}

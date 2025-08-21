@@ -64,9 +64,9 @@ signupFormEl.addEventListener("submit", async (e) => {
       alert("Account Created Successfully");
     }
 
-    name = "";
-    email = "";
-    password = "";
+    signupNameEl = "";
+    signupEmailEl = "";
+    signupPasswordEl = "";
   } catch (error) {
     console.log("Error", error.message);
   }
@@ -79,14 +79,17 @@ const loginPasswordEl = document.querySelector(".login-password");
 loginFormEl.addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  const email = loginEmailEl.value;
-  const password = loginPasswordEl.value;
+  let email = loginEmailEl.value;
+  let password = loginPasswordEl.value;
 
   try {
     const data = await signInUser(email, password);
 
     if (data) {
-      alert("Successfully Signed In");
+      loginEmailEl.value = "";
+      loginPasswordEl.value = "";
+
+      window.location.href = "app.html";
     }
   } catch (error) {
     console.log("Error", error.message);

@@ -34,3 +34,23 @@ export async function signInUser(email, password) {
     return data;
   }
 }
+
+export async function retrieveSession() {
+  const { data, error } = await client.auth.getSession();
+
+  if (error) {
+    throw error;
+
+    return null;
+  } else {
+    return data;
+  }
+}
+
+export async function signoutUser() {
+  const { error } = await client.auth.signOut();
+
+  if (error) {
+    throw error;
+  }
+}
