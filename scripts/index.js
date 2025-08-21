@@ -1,3 +1,5 @@
+import { createNewUser, signInUser } from "../backend/backend.js";
+
 document.addEventListener("DOMContentLoaded", function () {
   const tabs = document.querySelectorAll(".tab");
   const formContents = document.querySelectorAll(".form-content");
@@ -41,4 +43,52 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     });
   });
+});
+
+const signupFormEl = document.querySelector(".signup-form");
+const signupNameEl = document.querySelector(".signup-name");
+const signupEmailEl = document.querySelector(".signup-email");
+const signupPasswordEl = document.querySelector(".signup-password");
+
+signupFormEl.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  let name = signupNameEl.value;
+  let email = signupEmailEl.value;
+  let password = signupPasswordEl.value;
+
+  try {
+    const data = await createNewUser(name, email, password);
+
+    if (data) {
+      alert("Account Created Successfully");
+    }
+
+    name = "";
+    email = "";
+    password = "";
+  } catch (error) {
+    console.log("Error", error.message);
+  }
+});
+
+const loginFormEl = document.querySelector(".login-form");
+const loginEmailEl = document.querySelector(".login-email");
+const loginPasswordEl = document.querySelector(".login-password");
+
+loginFormEl.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const email = loginEmailEl.value;
+  const password = loginPasswordEl.value;
+
+  try {
+    const data = await signInUser(email, password);
+
+    if (data) {
+      alert("Successfully Signed In");
+    }
+  } catch (error) {
+    console.log("Error", error.message);
+  }
 });
