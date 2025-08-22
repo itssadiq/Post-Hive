@@ -2,7 +2,7 @@ import { retrieveSession, signoutUser } from "../backend/backend.js";
 
 const userData = await checkAuthentication();
 
-const userName = userData.session.user.user_metadata.name;
+const userName = userData.session.user.user_metadata.displayName;
 
 const usernameEl = document.querySelector(".username");
 
